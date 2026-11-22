@@ -58,9 +58,16 @@ const summarize = (raw) => {
     .map((p) => p.trim())
     .find((p) => p && !/^(#|<|\||-|\*|>)/.test(p));
   if (!para) return "";
-  const text = para
-    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
-    .replace(/<[^>]+>/g, "")
+  // Strip tags until none remain (a single pass can leave fragments such as
+  // "<script" from nested input). The result is still escaped with esc() on output.
+  let stripped = para.replace(/\[([^\]]*)\]\([^)]*\)/g, "$1");
+  let previous;
+  do {
+    previous = stripped;
+    stripped = stripped.replace(/<[^>]*>/g, "");
+  } while (stripped !== previous);
+  const text = stripped
+    .replace(/[<>]/g, "")
     .replace(/[`*_]/g, "")
     .replace(/\s+/g, " ")
     .trim();
