@@ -1,6 +1,6 @@
 # GraphQL-Markdown + Pelican demo
 
-This project demonstrates how to generate GraphQL documentation with GraphQL-Markdown for a Pelican site using the notmyidea theme.
+This project demonstrates how to generate GraphQL documentation with GraphQL-Markdown for a [Pelican](https://getpelican.com/) site using the notmyidea theme.
 
 **Live demo:** [graphql-markdown.dev/demo-pelican](https://graphql-markdown.dev/demo-pelican/)
 
