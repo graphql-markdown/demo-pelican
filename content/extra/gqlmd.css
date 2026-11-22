@@ -161,3 +161,20 @@ main#content .gqlmd-highlights .gqlmd-eyebrow-sm { font-family: var(--mono); fon
   .gqlmd-preview { box-shadow: 10px 10px 0 var(--gqlmd-shadow); }
   .gqlmd-highlights { grid-template-columns: 1fr; gap: 1.5rem; }
 }
+
+/* Breadcrumbs, category intro and card grid */
+.gq-crumbs ol { list-style: none; margin: 0 0 0.5rem; padding: 0; display: flex; flex-wrap: wrap; gap: 0.25rem; font-size: 0.8125rem; color: var(--muted); }
+.gq-crumbs li + li::before { content: "\203A"; margin-right: 0.25rem; color: var(--muted); }
+.gq-crumbs a { color: var(--link); }
+.gq-crumbs li[aria-current] { color: var(--muted); overflow-wrap: anywhere; }
+main#content .gq-intro { margin: 0 0 1.5rem; color: var(--gqlmd-secondary); font-size: 1.0625rem; }
+.gq-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 1rem; margin: 0 0 2rem; }
+main#content a.gq-card, main#content a.gq-card:visited { display: flex; flex-direction: column; gap: 0.4rem; min-width: 0; padding: 1rem 1.1rem; background: var(--gqlmd-chip-bg); border: 1px solid var(--gqlmd-chip-border); border-radius: var(--gqlmd-radius); color: var(--fg); text-decoration: none; transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s; }
+main#content a.gq-card:hover, main#content a.gq-card:focus-visible { border-color: var(--brand); box-shadow: 0 2px 8px var(--gqlmd-shadow); transform: translateY(-1px); text-decoration: none; }
+main#content a.gq-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.gq-card-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; min-width: 0; }
+main#content .gq-card-name { padding: 0; background: none; color: var(--link); font-size: 1rem; font-weight: 600; overflow-wrap: anywhere; }
+.gq-card-desc { font-size: 0.875rem; line-height: 1.45; color: var(--gqlmd-secondary); overflow-wrap: anywhere; }
+.gq-card-meta { font-size: 0.8125rem; color: var(--gqlmd-secondary); }
+.gq-card-badge { flex: none; font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; padding: 0.05rem 0.45rem; border-radius: 999px; color: var(--gqlmd-warning); background: var(--gqlmd-warning-bg); border: 1px solid var(--gqlmd-warning); }
+@media (max-width: 40em) { .gq-cards { grid-template-columns: 1fr; } }

@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 {% block title %}{{ page.title }} - {{ SITENAME }}{% endblock %}
 {% block content %}
+{% if page.slug.startswith("graphql/") %}
+<nav class="gq-crumbs" aria-label="Breadcrumb"><ol>
+  <li><a href="{{ SITEURL }}/graphql/">API Reference</a></li>
+  {% set parts = page.slug.split("/")[1:] %}
+  {% for part in parts %}
+  {% set label = page.title if loop.last else part.replace("-", " ")|title %}
+  {% if loop.last %}<li aria-current="page">{{ label }}</li>{% else %}<li><a href="{{ SITEURL }}/{{ page.slug.split("/")[:loop.index + 1]|join("/") }}/">{{ label }}</a></li>{% endif %}
+  {% endfor %}
+</ol></nav>
+{% endif %}
 {% if page.slug != "home" %}<h1>{{ page.title }}</h1>{% endif %}
 {{ page.content }}
 {% endblock %}
