@@ -81,15 +81,13 @@ await runGraphQLMarkdown(
     pretty: true,
     force: true,
     telemetry: false,
+    homepage: false,
     docOptions: {
       sectionHeaderId: false,
     },
   },
   {},
 );
-
-// The CLI drops a root-level generated.md homepage stub; Pelican has its own home.
-rmSync(join(GRAPHQL_DIR, "generated.md"), { force: true });
 
 for (const file of await walk(GRAPHQL_DIR)) {
   await addMetadata(file);
