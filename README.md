@@ -2,7 +2,7 @@
 
 This project demonstrates how to generate GraphQL documentation with GraphQL-Markdown for a Pelican site using the notmyidea theme.
 
-**Live demo:** [graphql-markdown.github.io/demo-pelican](https://graphql-markdown.github.io/demo-pelican/)
+**Live demo:** [graphql-markdown.dev/demo-pelican](https://graphql-markdown.dev/demo-pelican/)
 
 ## Quick start
 
@@ -63,13 +63,49 @@ Screenshots are uploaded to Argos only in CI when `ARGOS_TOKEN` is set. Set `VIS
 
 The `Deploy to GitHub Pages` workflow runs `npm run build` on every push to `main` and publishes `output/` to the `gh-pages` branch with `pipx run ghp-import -n -p -f output`.
 
-## Notes
+## Using GraphQL-Markdown with Pelican
 
-- The documented schema is the [shared GraphQL-Markdown demo schema](https://github.com/graphql-markdown/graphql-markdown/blob/main/tests/e2e/__data__/demo_schema.graphql) used by all GraphQL-Markdown demos, loaded from its raw URL at generation time.
-- The custom formatter (`scripts/custom-pelican-mdx.mjs`) is built on the `@graphql-markdown/formatters/mkdocs` preset, with these Pelican-specific differences:
-  - Internal links are Pelican intrasite links, `{filename}/pages/...md`, instead of page-relative `.md` links.
-  - `generate-docs.mjs` prepends a `Title:` / `Slug:` / `Status: hidden` metadata block to each generated page, because Pelican reads `Key: value` metadata rather than YAML front matter. Hidden pages are built at their URL but kept off the theme's page lists.
-  - Each directory gets a generated `index.md` that lists its pages and sub-directories. The top-level categories are linked from the API Reference page (`api.md`), which is rewritten on every run.
-  - The CLI writes a root-level `generated.md` homepage stub; the generator deletes it because Pelican has its own home page.
-- `pelicanconf.py` uses a relative menu link (`graphql/`) and `publishconf.py` uses the full `SITEURL` link, because the notmyidea theme prints `MENUITEMS` URLs verbatim.
-- The theme does not load `CUSTOM_CSS`, so `theme-overrides/base.html` adds the `static/gqlmd.css` stylesheet to the head.
+There is no GraphQL-Markdown preset for Pelican. Pelican is blog-first, and its link and metadata syntax is Pelican-specific, so this demo's custom formatter is the reference recipe. See [issue #3652](https://github.com/graphql-markdown/graphql-markdown/issues/3652) for the discussion.
+
+### GraphQL-Markdown options
+
+`scripts/generate-docs.mjs` runs GraphQL-Markdown with these options:
+
+```js
+await runGraphQLMarkdown({
+  schema: "https://raw.githubusercontent.com/graphql-markdown/graphql-markdown/main/tests/e2e/__data__/demo_schema.graphql",
+  rootPath: "./content/pages",
+  baseURL: "graphql",
+  homepage: false,
+  formatter: "./scripts/custom-pelican-mdx.mjs",
+}, {});
+```
+
+`homepage: false` skips the CLI's built-in `generated.md` homepage, since Pelican has its own home page.
+
+### Custom formatter
+
+`scripts/custom-pelican-mdx.mjs` extends `@graphql-markdown/formatters/mkdocs` with these changes:
+
+| Area       | Change                                                                                                                  |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Links      | Internal links become `{filename}/pages/...md`, Pelican intrasite links, instead of page-relative `.md` links.         |
+| Metadata   | `generate-docs.mjs` prepends `Title:`, `Slug:` (path-based, to avoid title-slug collisions) and `Status: hidden` in place of YAML front matter. Hidden pages are built at their URL but kept off page lists. |
+| Navigation | Each directory gets a generated `index.md` listing its pages and sub-directories. `api.md` links the top-level categories. |
+
+Python-Markdown admonitions, `<details>` blocks and 4-space indentation carry over unchanged from the mkdocs preset.
+
+### pelicanconf.py settings
+
+| Setting                    | Value                                   | Purpose                                              |
+| -------------------------- | --------------------------------------- | ---------------------------------------------------- |
+| `PAGE_PATHS`               | `["pages"]`                             | Reads the generated pages.                           |
+| `ARTICLE_PATHS`            | `[]`                                    | No blog articles.                                    |
+| `PAGE_URL`                 | `"{slug}/"`                             | Pages are served at their slug path.                 |
+| `PAGE_SAVE_AS`             | `"{slug}/index.html"`                   | Each page is written to its own index.html.          |
+| `MARKDOWN`                 | admonition, md_in_html, toc, extra, codehilite | Extensions required by the formatter output.  |
+| Blog outputs               | `ARCHIVES_SAVE_AS`, `TAGS_SAVE_AS`, `CATEGORIES_SAVE_AS`, `AUTHORS_SAVE_AS` and related `*_SAVE_AS` set to `""` | Disables the unused blog pages. |
+
+### Theme
+
+`theme/` is an example docs theme. Its `nav_tree` Jinja filter (registered in `JINJA_FILTERS`) nests pages by slug path for the sidebar.
