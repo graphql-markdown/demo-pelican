@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+  <script>
+    try {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/theme.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/static/gqlmd.css">
+</head>
+<body{% if page and page.slug == "home" %} class="is-home"{% endif %}>
+{% macro branch(node, current) %}
+  {% set active = current == node.slug %}
+  {% set open = active or current.startswith(node.slug ~ "/") or (current == "graphql" and node.slug.startswith("graphql/")) %}
+  {% if node.children %}
+  <li><details{% if open %} open{% endif %}>
+    <summary>{% if node.url is not none %}<a href="{{ SITEURL }}/{{ node.url }}"{% if active %} class="current" aria-current="page"{% endif %}>{{ node.title }}</a>{% else %}<span>{{ node.title }}</span>{% endif %}</summary>
+    <ul>{% for c in node.children %}{{ branch(c, current) }}{% endfor %}</ul>
+  </details></li>
+  {% else %}
+  <li><a href="{{ SITEURL }}/{{ node.url }}"{% if active %} class="current" aria-current="page"{% endif %}>{{ node.title }}</a></li>
+  {% endif %}
+{% endmacro %}
+{% set current = page.slug if page else "" %}
+<input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+<div class="layout">
+  <aside class="sidebar">
+    <a class="brand" href="{{ SITEURL }}/">{{ SITENAME }}</a>
+    <nav aria-label="Site">
+      <ul class="tree">
+        {% for node in (hidden_pages + pages)|nav_tree %}{{ branch(node, current) }}{% endfor %}
+      </ul>
+    </nav>
+  </aside>
+  <label for="nav-toggle" class="overlay"></label>
+  <div class="page">
+    <header class="topbar">
+      <label for="nav-toggle" class="icon-btn menu-btn" aria-label="Open navigation" role="button">&#9776;</label>
+      <a class="topbar-brand" href="{{ SITEURL }}/">{{ SITENAME }}</a>
+      <button type="button" class="icon-btn" id="theme-toggle" aria-label="Toggle color theme" title="Toggle color theme"></button>
+    </header>
+    <div class="body">
+      <main id="content">
+        {% block content %}{% endblock %}
+      </main>
+      <aside class="toc" id="toc" hidden>
+        <div class="toc-title">On this page</div>
+        <ul></ul>
+      </aside>
+    </div>
+    <footer class="footer">Generated with <a href="https://graphql-markdown.dev">GraphQL-Markdown</a> &middot; <a href="https://github.com/graphql-markdown/graphql-markdown">&#11088; Star on GitHub</a></footer>
+  </div>
+</div>
+<button type="button" id="to-top" class="to-top" aria-label="Back to top" hidden>&uarr; Back to top</button>
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn = document.getElementById("theme-toggle");
+  var modes = ["light", "dark", "auto"];
+  var icons = {light: "☀", dark: "☾", auto: "◐"};
+  function get() {
+    try { return localStorage.getItem("theme") || "auto"; } catch (e) { return "auto"; }
+  }
+  function apply(m) {
+    if (m === "auto") root.removeAttribute("data-theme"); else root.setAttribute("data-theme", m);
+    btn.textContent = icons[m];
+    btn.setAttribute("title", "Theme: " + m);
+  }
+  apply(get());
+  btn.addEventListener("click", function () {
+    var m = modes[(modes.indexOf(get()) + 1) % modes.length];
+    try { localStorage.setItem("theme", m); } catch (e) {}
+    apply(m);
+  });
+
+  var heads = document.querySelectorAll("#content h2[id], #content h3[id]");
+  if (heads.length >= 2) {
+    var ul = document.querySelector("#toc ul");
+    heads.forEach(function (h) {
+      var li = document.createElement("li");
+      if (h.tagName === "H3") li.className = "sub";
+      var a = document.createElement("a");
+      a.href = "#" + h.id;
+      a.textContent = h.textContent.replace(/¶$/, "");
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+    document.getElementById("toc").hidden = false;
+  }
+
+  var top = document.getElementById("to-top");
+  window.addEventListener("scroll", function () { top.hidden = window.scrollY < 400; }, {passive: true});
+  top.addEventListener("click", function () { window.scrollTo({top: 0}); });
+
+  var cur = document.querySelector(".sidebar a.current");
+  if (cur && cur.scrollIntoView) cur.scrollIntoView({block: "center"});
+})();
+</script>
+<script src="{{ SITEURL }}/theme/js/gqlmd.js"></script>
+</body>
+</html>

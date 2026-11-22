@@ -1,0 +1,163 @@
+/*
+ * GraphQL-Markdown demo styles for the Pelican docs theme.
+ * Shared entity styling (chips, bullets, pill badges, code, admonitions)
+ * and landing page. Palettes follow the theme's light/dark mechanism.
+ */
+:root {
+  --gqlmd-chip-bg: #f4f4f5;
+  --gqlmd-chip-border: #e4e4e7;
+  --gqlmd-code-bg: #f4f4f5;
+  --gqlmd-secondary: #52525b;
+  --gqlmd-emphasis: #18181b;
+  --gqlmd-badge-bg: #eef2ff;
+  --gqlmd-badge-fg: #1d3fb8;
+  --gqlmd-badge-border: #c7d2fe;
+  --gqlmd-radius: 0.5rem;
+  --gqlmd-shadow: #e4e4e7;
+  --gqlmd-btn-fg: #fff;
+  --gqlmd-warning: #d97706; --gqlmd-warning-bg: #fffbeb;
+  --gqlmd-danger: #dc2626; --gqlmd-danger-bg: #fef2f2;
+  --gqlmd-info: #0891b2; --gqlmd-info-bg: #ecfeff;
+  --gqlmd-success: #16a34a; --gqlmd-success-bg: #f0fdf4;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --gqlmd-chip-bg: #27272a; --gqlmd-chip-border: #3f3f46; --gqlmd-code-bg: #1c1c1f;
+    --gqlmd-secondary: #a1a1aa; --gqlmd-emphasis: #fafafa;
+    --gqlmd-badge-bg: rgb(92 165 255 / 0.15); --gqlmd-badge-fg: #a9cdff; --gqlmd-badge-border: rgb(92 165 255 / 0.35);
+    --gqlmd-shadow: #1c1c1f; --gqlmd-btn-fg: #131416;
+    --gqlmd-warning: #f59e0b; --gqlmd-warning-bg: rgb(245 158 11 / 0.12);
+    --gqlmd-danger: #f87171; --gqlmd-danger-bg: rgb(248 113 113 / 0.12);
+    --gqlmd-info: #22d3ee; --gqlmd-info-bg: rgb(34 211 238 / 0.1);
+    --gqlmd-success: #4ade80; --gqlmd-success-bg: rgb(74 222 128 / 0.1);
+  }
+}
+[data-theme="dark"] {
+  --gqlmd-chip-bg: #27272a; --gqlmd-chip-border: #3f3f46; --gqlmd-code-bg: #1c1c1f;
+  --gqlmd-secondary: #a1a1aa; --gqlmd-emphasis: #fafafa;
+  --gqlmd-badge-bg: rgb(92 165 255 / 0.15); --gqlmd-badge-fg: #a9cdff; --gqlmd-badge-border: rgb(92 165 255 / 0.35);
+  --gqlmd-shadow: #1c1c1f; --gqlmd-btn-fg: #131416;
+  --gqlmd-warning: #f59e0b; --gqlmd-warning-bg: rgb(245 158 11 / 0.12);
+  --gqlmd-danger: #f87171; --gqlmd-danger-bg: rgb(248 113 113 / 0.12);
+  --gqlmd-info: #22d3ee; --gqlmd-info-bg: rgb(34 211 238 / 0.1);
+  --gqlmd-success: #4ade80; --gqlmd-success-bg: rgb(74 222 128 / 0.1);
+}
+
+/* Titles and section headings */
+main#content > h1:first-of-type { font-size: 2.25rem; font-weight: 700; letter-spacing: -0.02em; margin: 0.25rem 0 1.25rem; overflow-wrap: anywhere; }
+main#content h2, main#content h3 { font-weight: 600; letter-spacing: -0.01em; }
+main#content h2 { margin: 2rem 0 0.75rem; }
+main#content h3 { font-size: 1.4rem; margin: 2.5rem 0 1rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
+
+/* Field / argument rows */
+main#content h4:has(> .gqlmd-mdx-bullet) {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem;
+  font-size: 1rem; font-weight: 400; line-height: 1.6; margin: 1.1rem 0 0.3rem;
+}
+main#content h4:has(> .gqlmd-mdx-bullet) > .headerlink { display: none; }
+main#content h4:has(> .gqlmd-mdx-bullet) + p { margin-top: 0.25rem; color: var(--gqlmd-secondary); }
+/* entity chips: Parent.field, Type! */
+main#content h4 > code,
+main#content h4 > a > code {
+  display: inline-flex; align-items: baseline; padding: 0.05rem 0.45rem;
+  border: 1px solid var(--gqlmd-chip-border); border-radius: 0.375rem;
+  background: var(--gqlmd-chip-bg); font-size: 0.875rem; color: var(--fg);
+  overflow-wrap: anywhere;
+}
+main#content h4 > code { font-weight: 600; }
+main#content h4 > a { text-decoration: none; }
+main#content h4 > a > code, main#content h4 > a:visited > code { color: var(--link); font-weight: 600; }
+main#content h4 > a:hover > code { border-color: var(--link); }
+main#content .gqlmd-mdx-bullet {
+  display: inline-block; font-size: 0.4rem; line-height: 1; color: var(--gqlmd-secondary);
+  margin: 0 0.15rem; vertical-align: middle;
+}
+/* Badges as pills */
+main#content .gqlmd-mkdocs-badge {
+  display: inline-block; padding: 0.2em 0.65em; border: 1px solid var(--gqlmd-badge-border);
+  border-radius: 50rem; background: var(--gqlmd-badge-bg); color: var(--gqlmd-badge-fg);
+  font-family: var(--font); font-size: 0.72rem; font-weight: 600; line-height: 1.3;
+  letter-spacing: 0.02em; vertical-align: middle; white-space: nowrap;
+}
+/* Inline lists */
+main#content p:has(> .gqlmd-mdx-bullet, > .gqlmd-mkdocs-badge) { line-height: 2.1; }
+main#content p > .gqlmd-mdx-bullet { margin: 0 0.45rem; }
+main#content p > a > code, main#content li > a > code {
+  padding: 0.1rem 0.4rem; border: 1px solid var(--gqlmd-chip-border); border-radius: 0.375rem;
+  background: var(--gqlmd-chip-bg); color: var(--link); font-size: 0.85rem; font-weight: 600;
+}
+main#content p > a:has(> code), main#content li > a:has(> code) { text-decoration: none; }
+main#content p > a:has(> code):hover > code, main#content li > a:has(> code):hover > code { border-color: var(--link); }
+main#content p > a:has(> code) + .gqlmd-mkdocs-badge { margin-left: 0.15rem; }
+/* Links */
+main#content a { text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+/* Code */
+main#content :not(pre) > code { padding: 0.1rem 0.35rem; border-radius: 0.3rem; background: var(--gqlmd-code-bg); color: var(--gqlmd-emphasis); font-size: 0.875em; }
+main#content .highlight, main#content pre { background: var(--gqlmd-code-bg); }
+main#content pre { margin: 1rem 0 1.5rem; border: 1px solid var(--gqlmd-chip-border); border-radius: var(--gqlmd-radius); font-size: 0.875rem; line-height: 1.6; padding: 1rem 1.25rem; }
+main#content .highlight { margin: 1rem 0 1.5rem; border-radius: var(--gqlmd-radius); }
+main#content .highlight pre { margin: 0; }
+main#content pre > code { padding: 0; background: transparent; border: 0; }
+/* Admonitions */
+main#content .admonition {
+  --c: var(--brand); --bg: var(--gqlmd-info-bg);
+  margin: 1rem 0 1.5rem; padding: 0.9rem 1.1rem; border-left: 4px solid var(--c);
+  border-radius: var(--gqlmd-radius); background: var(--bg);
+}
+main#content .admonition.warning { --c: var(--gqlmd-warning); --bg: var(--gqlmd-warning-bg); }
+main#content .admonition.danger, main#content .admonition.error { --c: var(--gqlmd-danger); --bg: var(--gqlmd-danger-bg); }
+main#content .admonition.note, main#content .admonition.info { --c: var(--gqlmd-info); --bg: var(--gqlmd-info-bg); }
+main#content .admonition.tip, main#content .admonition.success { --c: var(--gqlmd-success); --bg: var(--gqlmd-success-bg); }
+main#content .admonition-title { margin: 0 0 0.4rem; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--c); }
+main#content .admonition > p:last-child { margin-bottom: 0; }
+@media (max-width: 767.98px) {
+  main#content > h1:first-of-type { font-size: 1.75rem; }
+  main#content h3 { font-size: 1.25rem; margin-top: 2rem; }
+  main#content pre { font-size: 0.8rem; }
+}
+
+/* Landing page */
+.is-home .toc { display: none !important; }
+.is-home #content { max-width: none; }
+.gqlmd-hero { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 3.5rem; align-items: center; padding: 3rem 0 4rem; }
+.gqlmd-hero > *, .gqlmd-hero-copy { min-width: 0; }
+main#content .gqlmd-eyebrow { margin: 0 0 1.5rem; font-family: var(--mono); font-size: 0.875rem; color: var(--brand); }
+[data-theme="dark"] main#content .gqlmd-eyebrow { color: var(--link); }
+main#content .gqlmd-landing h1.gqlmd-hero-title {
+  max-width: 36rem; margin: 0; font-family: Georgia, "Times New Roman", serif;
+  font-size: 3.75rem; font-weight: 600; line-height: 1.1; letter-spacing: normal;
+}
+.gqlmd-hero-text { max-width: 32rem; margin: 1.75rem 0 0; font-size: 1.125rem; line-height: 2rem; }
+.gqlmd-hero-links { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2.5rem; }
+main#content a.gqlmd-btn { display: inline-block; padding: 0.75rem 1.5rem; border: 1px solid var(--border); border-radius: 0.5rem; font-weight: 500; text-decoration: none; }
+main#content a.gqlmd-btn-primary, main#content a.gqlmd-btn-primary:visited { background: var(--brand); border-color: var(--brand); color: var(--gqlmd-btn-fg); }
+main#content a.gqlmd-btn-outline:visited { color: var(--fg); }
+[data-theme="dark"] main#content a.gqlmd-btn-primary { background: var(--brand); border-color: var(--brand); }
+main#content a.gqlmd-btn-primary:hover { filter: brightness(1.1); }
+main#content a.gqlmd-btn-outline { color: var(--fg); }
+main#content a.gqlmd-btn-outline:hover { background: var(--gqlmd-chip-bg); }
+.gqlmd-hero-intro { margin: 1.5rem 0 0; color: var(--gqlmd-secondary); }
+.gqlmd-preview { overflow: hidden; background: #1f1f1f; border: 1px solid var(--border); border-radius: 0.5rem; box-shadow: 20px 20px 0 var(--gqlmd-shadow); }
+.gqlmd-preview-bar { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; border-bottom: 1px solid rgb(63 63 70 / 0.8); }
+.gqlmd-preview-file { font-family: var(--mono); font-size: 0.875rem; color: #a1a1aa; }
+.gqlmd-preview-chip { padding: 0.25rem 0.5rem; border-radius: 0.25rem; background: rgb(92 165 255 / 0.12); font-family: var(--mono); font-size: 0.75rem; color: #5ca5ff; }
+main#content .gqlmd-preview pre { margin: 0; padding: 1.5rem; overflow-x: auto; background: transparent; border: 0; border-radius: 0; font-size: 0.875rem; line-height: 1.75; color: #e4e4e7; }
+main#content .gqlmd-preview code { display: block; padding: 0; background: transparent; color: inherit; white-space: pre; }
+.gqlmd-preview .token-keyword { color: #d8b4fe; }
+.gqlmd-preview .token-type { color: #93c5fd; }
+.gqlmd-preview .token-field { color: #f0abfc; }
+.gqlmd-highlights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; padding: 3rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.gqlmd-highlights p { margin: 0; }
+main#content .gqlmd-highlights .gqlmd-eyebrow-sm { font-family: var(--mono); font-size: 0.75rem; color: var(--brand); }
+[data-theme="dark"] main#content .gqlmd-highlights .gqlmd-eyebrow-sm { color: var(--link); }
+.gqlmd-highlights div > p:last-child { margin-top: 0.75rem; font-size: 1.125rem; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) main#content .gqlmd-eyebrow, :root:not([data-theme="light"]) main#content .gqlmd-highlights .gqlmd-eyebrow-sm { color: var(--link); }
+  :root:not([data-theme="light"]) main#content a.gqlmd-btn-primary { background: var(--brand); border-color: var(--brand); }
+}
+@media (max-width: 768px) {
+  .gqlmd-hero { grid-template-columns: 1fr; gap: 2.5rem; padding: 1.5rem 0 3rem; }
+  main#content .gqlmd-landing h1.gqlmd-hero-title { font-size: 2.5rem; }
+  .gqlmd-preview { box-shadow: 10px 10px 0 var(--gqlmd-shadow); }
+  .gqlmd-highlights { grid-template-columns: 1fr; gap: 1.5rem; }
+}
