@@ -1,0 +1,9 @@
+content/pages/graphql
+output
+node_modules
+__pycache__
+test-results/
+playwright-report/
+blob-report/
+screenshots/
+content/pages/api.md
