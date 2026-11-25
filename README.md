@@ -59,6 +59,14 @@ npm run test:visual
 
 Screenshots are uploaded to Argos only in CI when `ARGOS_TOKEN` is set. Set `VISUAL_PORT` to serve `output/` on another port than 4173.
 
+## Markdown copies
+
+`scripts/generate-copies.mjs` renders each GraphQL page again as plain Markdown into `.markdown-copies/`, using `lib/markdown-copy.mjs`. The build copies that folder into `output/`, so each page has a `.md` next to it at the same path (for example `/graphql/types/objects/project.md`). Every page ends with a "View as Markdown" link to its copy, set by `COPIES_URL` in `scripts/custom-pelican-mdx.mjs`.
+
+Backticked type names in deprecation reasons link to their pages. The `formatMDXAdmonition` override in `scripts/custom-pelican-mdx.mjs` adds those links.
+
+A type-level `@deprecatedType` directive renders a "Deprecated" badge and callout, defined in `lib/decorators.mjs` and used by both generation scripts.
+
 ## Deployment
 
 The `Deploy to GitHub Pages` workflow runs `npm run build` on every push to `main` and publishes `output/` to the `gh-pages` branch with `pipx run ghp-import -n -p -f output`.
