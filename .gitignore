@@ -7,3 +7,4 @@ playwright-report/
 blob-report/
 screenshots/
 content/pages/api.md
+.markdown-copies/
