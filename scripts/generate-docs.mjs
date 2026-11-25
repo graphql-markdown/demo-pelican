@@ -124,7 +124,9 @@ const writeIndexes = async (dir, isRoot = false) => {
           `{filename}/pages/${slugOf(join(dir, e.name))}.md`,
           title,
           summarize(raw),
-          { badge: raw.includes("DEPRECATED") },
+          // Deprecated type: its "deprecated" badge sits in the page header,
+          // before the first section; deprecated fields have badges too.
+          { badge: /badge">deprecated</.test(raw.split(/^#{2,} /m)[0]) },
         ),
       );
     }
