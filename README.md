@@ -65,6 +65,8 @@ Screenshots are uploaded to Argos only in CI when `ARGOS_TOKEN` is set. Set `VIS
 
 Backticked type names in deprecation reasons link to their pages. The `formatMDXAdmonition` override in `scripts/custom-pelican-mdx.mjs` adds those links.
 
+A type-level `@deprecatedType` directive renders a "Deprecated" badge and callout, defined in `lib/decorators.mjs` and used by both generation scripts.
+
 ## Deployment
 
 The `Deploy to GitHub Pages` workflow runs `npm run build` on every push to `main` and publishes `output/` to the `gh-pages` branch with `pipx run ghp-import -n -p -f output`.
