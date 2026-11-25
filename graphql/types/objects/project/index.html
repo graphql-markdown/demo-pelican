@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project - GraphQL-Markdown Pelican Demo</title>
+  <script>
+    try {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="https://graphql-markdown.dev/demo-pelican/theme/css/theme.css">
+  <link rel="stylesheet" href="https://graphql-markdown.dev/demo-pelican/theme/css/pygments.css">
+  <link rel="stylesheet" href="https://graphql-markdown.dev/demo-pelican/static/gqlmd.css">
+</head>
+<body>
+<input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+<div class="layout">
+  <aside class="sidebar">
+    <a class="brand" href="https://graphql-markdown.dev/demo-pelican/">GraphQL-Markdown Pelican Demo</a>
+    <nav aria-label="Site">
+      <ul class="tree">
+  <li><a href="https://graphql-markdown.dev/demo-pelican/">Home</a></li>
+  <li><details open>
+    <summary><a href="https://graphql-markdown.dev/demo-pelican/graphql/">API Reference</a></summary>
+    <ul>  <li><details>
+    <summary><a href="https://graphql-markdown.dev/demo-pelican/graphql/operations/">Operations</a></summary>
+    <ul>  <li><details>
+    <summary><a href="https://graphql-markdown.dev/demo-pelican/graphql/operations/directives/">Directives</a></summary>
+    <ul>  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/operations/directives/include/">include</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/operations/directives/skip/">skip</a></li>
+</ul>
+  </details></li>
+  <li><details>
+    <summary><a href="https://graphql-markdown.dev/demo-pelican/graphql/operations/mutations/">Mutations</a></summary>
+    <ul>  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/operations/mutations/archive-project/">archiveProject</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/operations/mutations/create-folder/">createFolder</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/operations/mutations/create-project/">createProject</a></li>
+</ul>
+  </details></li>
+  <li><details>
+    <summary><a href="https://graphql-markdown.dev/demo-pelican/graphql/operations/queries/">Queries</a></summary>
+    <ul>  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/operations/queries/folder/">folder</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/operations/queries/folders/">folders</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/operations/queries/projects/">projects</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/operations/queries/search/">search</a></li>
+</ul>
+  </details></li>
+  <li><details>
+    <summary><a href="https://graphql-markdown.dev/demo-pelican/graphql/operations/subscriptions/">Subscriptions</a></summary>
+    <ul>  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/operations/subscriptions/folder-created/">folderCreated</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/operations/subscriptions/project-changed/">projectChanged</a></li>
+</ul>
+  </details></li>
+</ul>
+  </details></li>
+  <li><details open>
+    <summary><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/">Types</a></summary>
+    <ul>  <li><details>
+    <summary><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/directives/">Directives</a></summary>
+    <ul>  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/directives/deprecated/">deprecated</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/directives/deprecated-type/">deprecatedType</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/directives/example/">example</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/directives/example-response/">exampleResponse</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/directives/example-variables/">exampleVariables</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/directives/one-of/">oneOf</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/directives/specified-by/">specifiedBy</a></li>
+</ul>
+  </details></li>
+  <li><details>
+    <summary><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/enums/">Enums</a></summary>
+    <ul>  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/enums/project-event-type/">ProjectEventType</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/enums/project-status/">ProjectStatus</a></li>
+</ul>
+  </details></li>
+  <li><details>
+    <summary><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/inputs/">Inputs</a></summary>
+    <ul>  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/inputs/create-project-input/">CreateProjectInput</a></li>
+</ul>
+  </details></li>
+  <li><details>
+    <summary><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/interfaces/">Interfaces</a></summary>
+    <ul>  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/interfaces/node/">Node</a></li>
+</ul>
+  </details></li>
+  <li><details open>
+    <summary><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/objects/">Objects</a></summary>
+    <ul>  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/objects/folder/">Folder</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/objects/legacy-project/">LegacyProject</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/objects/project/" class="current" aria-current="page">Project</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/objects/project-connection/">ProjectConnection</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/objects/project-event/">ProjectEvent</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/objects/user/">User</a></li>
+</ul>
+  </details></li>
+  <li><details>
+    <summary><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/scalars/">Scalars</a></summary>
+    <ul>  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/scalars/boolean/">Boolean</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/scalars/date-time/">DateTime</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/scalars/id/">ID</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/scalars/int/">Int</a></li>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/scalars/string/">String</a></li>
+</ul>
+  </details></li>
+  <li><details>
+    <summary><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/unions/">Unions</a></summary>
+    <ul>  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/unions/search-result/">SearchResult</a></li>
+</ul>
+  </details></li>
+</ul>
+  </details></li>
+</ul>
+  </details></li>
+      </ul>
+    </nav>
+  </aside>
+  <label for="nav-toggle" class="overlay"></label>
+  <div class="page">
+    <header class="topbar">
+      <label for="nav-toggle" class="icon-btn menu-btn" aria-label="Open navigation" role="button">&#9776;</label>
+      <a class="topbar-brand" href="https://graphql-markdown.dev/demo-pelican/">GraphQL-Markdown Pelican Demo</a>
+      <button type="button" class="icon-btn" id="theme-toggle" aria-label="Toggle color theme" title="Toggle color theme"></button>
+    </header>
+    <div class="body">
+      <main id="content">
+<nav class="gq-crumbs" aria-label="Breadcrumb"><ol>
+  <li><a href="https://graphql-markdown.dev/demo-pelican/graphql/">API Reference</a></li>
+<li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/">Types</a></li><li><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/objects/">Objects</a></li><li aria-current="page">Project</li></ol></nav>
+<h1>Project</h1><p>A unit of work tracked in the workspace.</p>
+<div class="highlight"><pre><span></span><code><span class="k">type</span><span class="w"> </span><span class="err">Project</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="err">Node</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nl">id</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="err">!</span>
+<span class="w">  </span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="err">!</span>
+<span class="w">  </span><span class="nl">status</span><span class="p">:</span><span class="w"> </span><span class="n">ProjectStatus</span><span class="err">!</span>
+<span class="w">  </span><span class="nl">owner</span><span class="p">:</span><span class="w"> </span><span class="n">User</span><span class="err">!</span>
+<span class="w">  </span><span class="nl">folder</span><span class="p">:</span><span class="w"> </span><span class="n">Folder</span>
+<span class="w">  </span><span class="nl">updatedAt</span><span class="p">:</span><span class="w"> </span><span class="n">DateTime</span><span class="err">!</span>
+<span class="w">  </span><span class="nl">state</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nd">@deprecated</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<h3 id="fields">Fields</h3>
+<h4 id="projectid-id-non-null-scalar"><code>Project.id</code><span class="gqlmd-mdx-bullet">&nbsp;●&nbsp;</span><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/scalars/id/"><code>ID!</code></a> <mark class="gqlmd-mkdocs-badge">non-null</mark> <mark class="gqlmd-mkdocs-badge">scalar</mark></h4>
+<p>The unique identifier of the project.</p>
+<h4 id="projectname-string-non-null-scalar"><code>Project.name</code><span class="gqlmd-mdx-bullet">&nbsp;●&nbsp;</span><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/scalars/string/"><code>String!</code></a> <mark class="gqlmd-mkdocs-badge">non-null</mark> <mark class="gqlmd-mkdocs-badge">scalar</mark></h4>
+<p>The project name shown to collaborators.</p>
+<h4 id="projectstatus-projectstatus-non-null-enum"><code>Project.status</code><span class="gqlmd-mdx-bullet">&nbsp;●&nbsp;</span><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/enums/project-status/"><code>ProjectStatus!</code></a> <mark class="gqlmd-mkdocs-badge">non-null</mark> <mark class="gqlmd-mkdocs-badge">enum</mark></h4>
+<p>The current lifecycle stage of the project.</p>
+<h4 id="projectowner-user-non-null-object"><code>Project.owner</code><span class="gqlmd-mdx-bullet">&nbsp;●&nbsp;</span><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/objects/user/"><code>User!</code></a> <mark class="gqlmd-mkdocs-badge">non-null</mark> <mark class="gqlmd-mkdocs-badge">object</mark></h4>
+<p>The user responsible for the project.</p>
+<h4 id="projectfolder-folder-object"><code>Project.folder</code><span class="gqlmd-mdx-bullet">&nbsp;●&nbsp;</span><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/objects/folder/"><code>Folder</code></a> <mark class="gqlmd-mkdocs-badge">object</mark></h4>
+<p>The folder containing this project, when assigned.</p>
+<h4 id="projectupdatedat-datetime-non-null-scalar"><code>Project.updatedAt</code><span class="gqlmd-mdx-bullet">&nbsp;●&nbsp;</span><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/scalars/date-time/"><code>DateTime!</code></a> <mark class="gqlmd-mkdocs-badge">non-null</mark> <mark class="gqlmd-mkdocs-badge">scalar</mark></h4>
+<p>When the project was last updated.</p>
+<h4 id="projectstate-string-deprecated-scalar"><code>Project.state</code><span class="gqlmd-mdx-bullet">&nbsp;●&nbsp;</span><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/scalars/string/"><code>String</code></a> <mark class="gqlmd-mkdocs-badge">deprecated</mark> <mark class="gqlmd-mkdocs-badge">scalar</mark></h4>
+<div class="admonition warning">
+<p class="admonition-title">DEPRECATED</p>
+<p>Replaced by the <a href="https://graphql-markdown.dev/demo-pelican/graphql/types/enums/project-status/"><code>ProjectStatus</code></a> enum on status.</p>
+</div>
+<p>The project's lifecycle stage.</p>
+<h3 id="interfaces">Interfaces</h3>
+<h4 id="node-interface"><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/interfaces/node/"><code>Node</code></a> <mark class="gqlmd-mkdocs-badge">interface</mark></h4>
+<p>A globally unique entity identifier.</p>
+<h3 id="example">Example</h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="err">&quot;</span><span class="n">id</span><span class="err">&quot;:</span><span class="w"> </span><span class="err">&quot;</span><span class="n">project_01</span><span class="err">&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="err">&quot;</span><span class="n">name</span><span class="err">&quot;:</span><span class="w"> </span><span class="err">&quot;</span><span class="n">Mobile</span><span class="w"> </span><span class="n">Refresh</span><span class="err">&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="err">&quot;</span><span class="n">status</span><span class="err">&quot;:</span><span class="w"> </span><span class="err">&quot;</span><span class="n">ACTIVE</span><span class="err">&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="err">&quot;</span><span class="n">owner</span><span class="err">&quot;:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="err">&quot;</span><span class="n">id</span><span class="err">&quot;:</span><span class="w"> </span><span class="err">&quot;</span><span class="n">user_01</span><span class="err">&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="err">&quot;</span><span class="n">name</span><span class="err">&quot;:</span><span class="w"> </span><span class="err">&quot;</span><span class="n">Avery</span><span class="w"> </span><span class="n">Chen</span><span class="err">&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="err">&quot;</span><span class="n">updatedAt</span><span class="err">&quot;:</span><span class="w"> </span><span class="err">&quot;2026-09-05</span><span class="nl">T10</span><span class="p">:</span><span class="err">15:00</span><span class="n">Z</span><span class="err">&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="returned-by">Returned By</h3>
+<p><a href="https://graphql-markdown.dev/demo-pelican/graphql/operations/mutations/archive-project/"><code>archiveProject</code></a>  <mark class="gqlmd-mkdocs-badge">mutation</mark><span class="gqlmd-mdx-bullet">&nbsp;●&nbsp;</span><a href="https://graphql-markdown.dev/demo-pelican/graphql/operations/mutations/create-project/"><code>createProject</code></a>  <mark class="gqlmd-mkdocs-badge">mutation</mark></p>
+<h3 id="member-of">Member Of</h3>
+<p><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/objects/project-connection/"><code>ProjectConnection</code></a>  <mark class="gqlmd-mkdocs-badge">object</mark><span class="gqlmd-mdx-bullet">&nbsp;●&nbsp;</span><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/objects/project-event/"><code>ProjectEvent</code></a>  <mark class="gqlmd-mkdocs-badge">object</mark></p>
+<h3 id="implemented-by">Implemented By</h3>
+<p><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/unions/search-result/"><code>SearchResult</code></a>  <mark class="gqlmd-mkdocs-badge">union</mark></p>
+<p><a href="https://graphql-markdown.dev/demo-pelican/graphql/types/objects/project.md">View as Markdown</a></p>
+      </main>
+      <aside class="toc" id="toc" hidden>
+        <div class="toc-title">On this page</div>
+        <ul></ul>
+      </aside>
+    </div>
+    <footer class="footer">Generated with <a href="https://graphql-markdown.dev">GraphQL-Markdown</a> &middot; <a href="https://github.com/graphql-markdown/graphql-markdown">&#11088; Star on GitHub</a></footer>
+  </div>
+</div>
+<button type="button" id="to-top" class="to-top" aria-label="Back to top" hidden>&uarr; Back to top</button>
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn = document.getElementById("theme-toggle");
+  var modes = ["light", "dark", "auto"];
+  var icons = {light: "☀", dark: "☾", auto: "◐"};
+  function get() {
+    try { return localStorage.getItem("theme") || "auto"; } catch (e) { return "auto"; }
+  }
+  function apply(m) {
+    if (m === "auto") root.removeAttribute("data-theme"); else root.setAttribute("data-theme", m);
+    btn.textContent = icons[m];
+    btn.setAttribute("title", "Theme: " + m);
+  }
+  apply(get());
+  btn.addEventListener("click", function () {
+    var m = modes[(modes.indexOf(get()) + 1) % modes.length];
+    try { localStorage.setItem("theme", m); } catch (e) {}
+    apply(m);
+  });
+
+  var heads = document.querySelectorAll("#content h2[id], #content h3[id]");
+  if (heads.length >= 2) {
+    var ul = document.querySelector("#toc ul");
+    heads.forEach(function (h) {
+      var li = document.createElement("li");
+      if (h.tagName === "H3") li.className = "sub";
+      var a = document.createElement("a");
+      a.href = "#" + h.id;
+      a.textContent = h.textContent.replace(/¶$/, "");
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+    document.getElementById("toc").hidden = false;
+  }
+
+  var top = document.getElementById("to-top");
+  window.addEventListener("scroll", function () { top.hidden = window.scrollY < 400; }, {passive: true});
+  top.addEventListener("click", function () { window.scrollTo({top: 0}); });
+
+  var cur = document.querySelector(".sidebar a.current");
+  if (cur && cur.scrollIntoView) cur.scrollIntoView({block: "center"});
+})();
+</script>
+<script src="https://graphql-markdown.dev/demo-pelican/theme/js/gqlmd.js"></script>
+</body>
+</html>
